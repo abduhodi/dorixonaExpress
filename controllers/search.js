@@ -7,7 +7,7 @@ function parseQueryBody(req, res) {
     const { name, region, district } = req.query;
     let query1 = "";
     let query2 = "";
-    if (district !== "") {
+    if (district !== "0") {
       query1 = `select s.id, m.name, t.name type, m.price, m.expire_date, m.info, p.name pharmacy,
       p.phone, r.name region, d.name district, p.address, s.quantity
       from stock s join medicines m on s.medicine_id = m.id
@@ -22,7 +22,7 @@ function parseQueryBody(req, res) {
       join types t on m.type_id = t.id
       join regions r on d.region_id = r.id
       where r.name = ? and d.name = ?`;
-    } else if (region !== "") {
+    } else if (region !== "0") {
       query1 = `select s.id, m.name, t.name type, m.price, m.expire_date, m.info, p.name pharmacy,
       p.phone, r.name region, d.name district, p.address, s.quantity
       from stock s join medicines m on s.medicine_id = m.id

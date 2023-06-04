@@ -19,7 +19,7 @@
         Modify Database
       </button>
     </nav>
-    <form action="/search" method="get" class="mt-5 px-5">
+    <form action="/search" method="get" class="mt-5 px-5" id="formGet">
       <div class="row justify-content-center">
         <div class="col-3">
           <input
@@ -75,11 +75,19 @@
     <%- include('table.ejs') %>
 
     <script>
+      document.onerror = () => {
+        document.location = "/error";
+      };
       const searchBtn = document.querySelector("#searchBtn"),
         region = document.querySelector("#region"),
         district = document.querySelector("#district"),
         medicine = document.querySelector("#medicine"),
-        gotoAdd = document.querySelector("#gotoAdd");
+        gotoAdd = document.querySelector("#gotoAdd"),
+        formGet = document.querySelector("#formGet");
+
+      formGet.addEventListener("submit", () => {
+        fetch("http://localhost:3030/");
+      });
 
       gotoAdd.addEventListener("click", () => {
         document.location = "/insert";
@@ -92,7 +100,7 @@
         );
         xhr.onload = (e) => {
           district.innerHTML =
-            "<option value='' selected>Select District...</option>";
+            "<option value='0' selected>Select District...</option>";
           const data = JSON.parse(e.target.response).data;
           data.forEach((element) => {
             const dist = document.createElement("option");
