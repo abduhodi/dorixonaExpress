@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+    <title>Insert Page</title>
+  </head>
+  <body>
+    <div class="row m-3 justify-content-end">
+      <button
+        type="button"
+        class="btn btn-warning px-4 col-auto"
+        id="gotoSearch"
+      >
+        Start Searching
+      </button>
+    </div>
+    <form action="/types" method="post" class="m-5" id="typeForm">
+      <h2>INSERT MEDICINE TYPES</h2>
+      <div class="row mt-3">
+        <div class="col-3">
+          <input
+            name="name"
+            type="text"
+            class="form-control"
+            placeholder="Enter medicine type"
+            required
+          />
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary px-4" id="addType">
+            Add type
+          </button>
+        </div>
+      </div>
+    </form>
+    <div
+      id="typeAdded"
+      class="alert alert-success alert-dismissible fade show mt-5"
+      role="alert"
+      style="text-align: center; display: none"
+    >
+      <strong>Success</strong> New type added
+    </div>
+    <hr />
+    <form action="/medicines" method="post" class="m-5" id="medicineForm">
+      <h2>INSERT MEDICINE</h2>
+      <div class="row mt-3">
+        <div class="col-3">
+          <input
+            name="name"
+            type="text"
+            class="form-control"
+            placeholder="Enter medicine name"
+            required
+          />
+        </div>
+        <div class="col-3">
+          <input
+            name="manufacturer"
+            type="text"
+            class="form-control"
+            placeholder="Enter medicine manufacturer"
+            required
+          />
+        </div>
+        <div class="col-auto">
+          <select name="type_id" id="type_id" class="form-control" required>
+            <option value="" selected>Select Type...</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-2">
+          <input
+            name="price"
+            type="number"
+            class="form-control"
+            placeholder="Enter medicine price"
+            required
+          />
+        </div>
+        <div class="col-2">
+          <input
+            name="expire_date"
+            type="date"
+            class="form-control"
+            placeholder="Enter expire date"
+            required
+          />
+        </div>
+        <div class="col-3">
+          <textarea
+            name="info"
+            cols="30"
+            rows="5"
+            placeholder="Enter medicine info"
+            required
+          ></textarea>
+        </div>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary px-4" id="addType">
+          Add Medicine
+        </button>
+      </div>
+    </form>
+    <div
+      id="medicineAddedSuccess"
+      class="alert alert-success alert-dismissible fade show mt-5"
+      role="alert"
+      style="text-align: center; display: none"
+    >
+      <strong>Success</strong> New Medicine added
+    </div>
+    <div
+      id="medicineAddedFailed"
+      class="alert alert-danger alert-dismissible fade show mt-5"
+      role="alert"
+      style="text-align: center; display: none"
+    >
+      <strong>Failed!</strong> Error occured
+    </div>
+
+    <hr />
+    <form action="/pharmacies" method="post" class="m-5" id="pharmacyForm">
+      <h2>INSERT PHARMACY</h2>
+      <div class="row mt-3">
+        <div class="col-3">
+          <input
+            name="name"
+            type="text"
+            class="form-control"
+            placeholder="Enter pharmacy name"
+            required
+          />
+        </div>
+        <div class="col-3">
+          <input
+            name="address"
+            type="text"
+            class="form-control"
+            placeholder="Enter pharmacy address"
+            required
+          />
+        </div>
+        <div class="col-2">
+          <input
+            name="phone"
+            type="tel"
+            class="form-control"
+            placeholder="Enter pharmacy phone"
+            required
+          />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-2">
+          <input
+            name="email"
+            type="email"
+            class="form-control"
+            placeholder="Enter pharmacy email"
+            required
+          />
+        </div>
+        <div class="col-auto">
+          <select
+            name="region_id"
+            id="region_id"
+            class="form-control"
+            onchange="getDistricts()"
+            required
+          >
+            <option value="0" selected>Select Region...</option>
+            <option value="toshkent">Tashkent</option>
+            <option value="toshkentshahar">Tashkent City</option>
+            <option value="andijon">Andijan</option>
+            <option value="namangan">Namangan</option>
+            <option value="fergana">Fergana</option>
+            <option value="jizzax">Jizzax</option>
+            <option value="sirdaryo">Sirdaryo</option>
+            <option value="samarkhand">Samarkhand</option>
+            <option value="qashqadaryo">Qashqadaryo</option>
+            <option value="surxondaryo">Surxondaryo</option>
+            <option value="navoiy">Navoiy</option>
+            <option value="xorazm">Xorazm</option>
+            <option value="qoraqalpog'iston">Qoraqalpog'iston</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <select
+            name="district_id"
+            id="district_id"
+            class="form-control"
+            required
+          >
+            <option value="">Select District...</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-auto mt-3">
+        <button type="submit" class="btn btn-primary px-4" id="addType">
+          Add Pharmacy
+        </button>
+      </div>
+    </form>
+    <div
+      id="pharmacyAddedSuccess"
+      class="alert alert-success alert-dismissible fade show mt-5"
+      role="alert"
+      style="text-align: center; display: none"
+    >
+      <strong>Success</strong> New Pharmacy added
+    </div>
+    <div
+      id="pharmacyAddedFailed"
+      class="alert alert-danger alert-dismissible fade show mt-5"
+      role="alert"
+      style="text-align: center; display: none"
+    >
+      <strong>Failed!</strong> Error occured
+    </div>
+    <hr />
+    <form action="/stocks" method="post" class="m-5" id="stockForm">
+      <h2>INSERT STOCK</h2>
+      <div class="row mt-3">
+        <div class="col-auto">
+          <select
+            name="medicine_id"
+            id="medicineId"
+            class="form-control"
+            required
+          >
+            <option value="">Select Medicine...</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <select
+            name="pharmacy_id"
+            id="pharmacyId"
+            class="form-control"
+            required
+          >
+            <option value="">Select Pharmacy...</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <input
+            type="number"
+            min="0"
+            name="quantity"
+            class="form-control"
+            placeholder="Enter Quantity"
+            required
+          />
+        </div>
+      </div>
+      <div class="col-auto mt-3">
+        <button type="submit" class="btn btn-primary px-4" id="addType">
+          Add to Stock
+        </button>
+      </div>
+    </form>
+    <div
+      id="stockAddedSuccess"
+      class="alert alert-success alert-dismissible fade show mt-5"
+      role="alert"
+      style="text-align: center; display: none"
+    >
+      <strong>Success</strong> New Stock added
+    </div>
+    <div
+      id="stockAddedFailed"
+      class="alert alert-danger alert-dismissible fade show mt-5"
+      role="alert"
+      style="text-align: center; display: none"
+    >
+      <strong>Failed!</strong> Error occured
+    </div>
+  </body>
+
+  <script>
+    // document.addEventListener("onload", getTypes);
+    const typeForm = document.querySelector("#typeForm"),
+      medicineForm = document.querySelector("#medicineForm"),
+      pharmacyForm = document.querySelector("#pharmacyForm"),
+      stockForm = document.querySelector("#stockForm"),
+      typeAdded = document.querySelector("#typeAdded"),
+      medicineAddedSuccess = document.querySelector("#medicineAddedSuccess"),
+      medicineAddedFailed = document.querySelector("#medicineAddedFailed"),
+      pharmacyAddedSuccess = document.querySelector("#pharmacyAddedSuccess"),
+      pharmacyAddedFailed = document.querySelector("#pharmacyAddedFailed"),
+      stockAddedSuccess = document.querySelector("#stockAddedSuccess"),
+      stockAddedFailed = document.querySelector("#stockAddedFailed"),
+      gotoSearch = document.querySelector("#gotoSearch");
+    ////////////////////////////////////////////////////////////////////////////////////////
+    gotoSearch.addEventListener("click", () => {
+      document.location = "/";
+    });
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    typeForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `http://localhost:3030/types`);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onload = () => {
+        getTypes();
+        typeAdded.style.display = "block";
+        typeForm.reset();
+        setInterval(() => {
+          typeAdded.style.display = "none";
+        }, 3000);
+      };
+      const params = `name=${typeForm.elements[0].value}`;
+      xhr.send(params);
+    });
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    medicineForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `http://localhost:3030/medicines`);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onload = () => {
+        getMedicines();
+        medicineAddedSuccess.style.display = "block";
+        medicineForm.reset();
+        setInterval(() => {
+          medicineAddedSuccess.style.display = "none";
+        }, 3000);
+      };
+      xhr.onerror = () => {
+        medicineAddedFailed.style.display = "block";
+        medicineForm.reset();
+        setInterval(() => {
+          medicineAddedFailed.style.display = "none";
+        }, 3000);
+      };
+      const params = `name=${medicineForm.elements[0].value}&manufacturer=${medicineForm.elements[1].value}&type_id=${medicineForm.elements[2].value}&price=${medicineForm.elements[3].value}&expire_date=${medicineForm.elements[4].value}&info=${medicineForm.elements[5].value}`;
+      xhr.send(params);
+    });
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    pharmacyForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `http://localhost:3030/pharmacies`);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onload = () => {
+        getPharmacies();
+        pharmacyAddedSuccess.style.display = "block";
+        pharmacyForm.reset();
+        setInterval(() => {
+          pharmacyAddedSuccess.style.display = "none";
+        }, 3000);
+      };
+      xhr.onerror = () => {
+        pharmacyAddedFailed.style.display = "block";
+        pharmacyForm.reset();
+        setInterval(() => {
+          pharmacyAddedFailed.style.display = "none";
+        }, 3000);
+      };
+      const params = `name=${pharmacyForm.elements[0].value}&addres=${pharmacyForm.elements[1].value}&phone=${pharmacyForm.elements[2].value}&email=${pharmacyForm.elements[3].value}&region_id=${pharmacyForm.elements[4].value}&district_id=${pharmacyForm.elements[5].value}`;
+      xhr.send(params);
+    });
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    stockForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `http://localhost:3030/stocks`);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onload = () => {
+        stockAddedSuccess.style.display = "block";
+        stockForm.reset();
+        setInterval(() => {
+          stockAddedSuccess.style.display = "none";
+        }, 3000);
+      };
+      xhr.onerror = () => {
+        stockAddedFailed.style.display = "block";
+        stockForm.reset();
+        setInterval(() => {
+          stockAddedFailed.style.display = "none";
+        }, 3000);
+      };
+      const params = `medicine_id=${stockForm.elements[0].value}&pharmacy_id=${stockForm.elements[1].value}&quantity=${stockForm.elements[2].value}`;
+      xhr.send(params);
+    });
+    ///////////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////////////
+    function getDistricts() {
+      const xhr = new XMLHttpRequest();
+      xhr.open(
+        "GET",
+        `http://localhost:3030/districts?region=${pharmacyForm.elements[4].value}`
+      );
+      xhr.onload = (e) => {
+        pharmacyForm.elements[5].innerHTML = `
+          <option value='0' selected>Select Region...</option>
+        `;
+        const data = JSON.parse(e.target.response).data;
+        data.forEach((dis) => {
+          const dist = document.createElement("option");
+          dist.value = dis.id;
+          dist.innerText = dis.name;
+          pharmacyForm.elements[5].append(dist);
+        });
+      };
+      xhr.send();
+    }
+
+    function getTypes() {
+      medicineForm.elements[2]; //typesDiv
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", `http://localhost:3030/types`);
+      xhr.onload = (e) => {
+        medicineForm.elements[2].innerHTML =
+          "<option value='' selected>Select Type...</option>";
+        const data = JSON.parse(e.target.response).data;
+        data.forEach((tip) => {
+          const type = document.createElement("option");
+          type.value = tip.id;
+          type.innerText = tip.name;
+          medicineForm.elements[2].append(type);
+        });
+      };
+      xhr.send();
+    }
+    getTypes();
+
+    function getMedicines() {
+      stockForm.elements[0].innerHTML =
+        "<option value='' selected>Select Medicine...</option>";
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://localhost:3030/medicines");
+      xhr.onload = (e) => {
+        const data = JSON.parse(e.target.response).data;
+        data.forEach((medic) => {
+          const med = document.createElement("option");
+          med.value = medic.id;
+          med.innerText = `${medic.name} (${medic.manufacturer})`;
+          stockForm.elements[0].append(med);
+        });
+      };
+      xhr.send();
+    }
+    getMedicines();
+
+    function getPharmacies() {
+      stockForm.elements[1].innerHTML =
+        "<option value='' selected>Select Pharmacy...</option>";
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://localhost:3030/pharmacies");
+      xhr.onload = (e) => {
+        const data = JSON.parse(e.target.response).data;
+        data.forEach((phar) => {
+          const pharm = document.createElement("option");
+          pharm.value = phar.id;
+          pharm.innerText = `${phar.name} (${phar.address})`;
+          stockForm.elements[1].append(pharm);
+        });
+      };
+      xhr.send();
+    }
+    getPharmacies();
+  </script>
+</html>

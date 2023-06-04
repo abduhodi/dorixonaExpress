@@ -1,0 +1,46 @@
+<% if(data !== false) { %> <% if(data.length === 0) { %>
+<div
+  class="alert alert-warning alert-dismissible fade show mt-5"
+  role="alert"
+  style="text-align: center"
+>
+  <strong>Wrong!</strong> Medicine not found for given name
+</div>
+<% } else { %>
+<div style="margin: 50px auto" class="px-5">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th class="col-auto">№</th>
+        <th class="col-auto">Medicine</th>
+        <th class="col-auto">Type</th>
+        <th class="col-auto">Price</th>
+        <th class="col-1">Expire date</th>
+        <th class="col-auto">Info</th>
+        <th class="col-auto">Pharmacy name</th>
+        <th class="col-1">Phone</th>
+        <th class="col-auto">Region</th>
+        <th class="col-auto">District</th>
+        <th class="col-auto">Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach((med, ind) => { %>
+      <tr>
+        <th scope="row"><%= ind + 1 %></th>
+        <td><%= med.name %></td>
+        <td><%= med.type %></td>
+        <td><%= med.price %></td>
+        <td><%= med.expire_date %></td>
+        <td><%= med.info %></td>
+        <td><%= med.pharmacy %></td>
+        <td><%= med.phone %></td>
+        <td><%= med.region.toUpperCase() %></td>
+        <td><%= med.district %></td>
+        <td><%= med.address %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<% } } %>
